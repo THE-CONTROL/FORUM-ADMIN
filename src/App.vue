@@ -1,30 +1,57 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <HomeWorld v-if="showApp" />
+  <div class="w-screen h-screen bg-slate-900 pt-44" v-else>
+    <h1
+      class="border-4 border-slate-100 rounded-full w-fit m-auto p-1 text-2xl font-bold text-slate-100 hover:bg-slate-700"
+    >
+      Control
+    </h1>
+  </div>
 </template>
 
+<script>
+import { onMounted, ref } from "vue";
+import HomeWorld from "./components/Home.vue";
+
+export default {
+  components: {
+    HomeWorld,
+  },
+  setup() {
+    const showApp = ref(false);
+
+    function showAppFunc() {
+      showApp.value = true;
+    }
+
+    onMounted(() => {
+      setTimeout(showAppFunc, 3000);
+    });
+
+    return { showApp, showAppFunc };
+  },
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
 }
 
-nav {
-  padding: 30px;
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>
